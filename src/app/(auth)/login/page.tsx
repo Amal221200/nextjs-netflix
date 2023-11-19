@@ -8,7 +8,7 @@ import AuthButton from "../_components/AuthButton";
 const LoginPage = () => {
     return (
         <div className="mt-24 py-10 px-6 bg-black/80 rounded md:mt-0 md:max-w-sm md:px-14">
-            <form action="">
+            <form method="post" action="/api/auth/signin">
                 <h1 className="text-3xl font-semibold text-white">Log In</h1>
                 <div className="space-y-4 mt-5">
                     <Input type="email" className="bg-[#333] placeholder:text-xs placeholder:text-gray-400 w-full inline-block" placeholder="Email" />

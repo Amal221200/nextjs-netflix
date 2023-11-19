@@ -1,12 +1,14 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/custom/Navbar";
 import authOptions from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 const HomePage = async () => {
-    // const session = await getServerSession(authOptions);
+
     return (
         <>
-            <Navbar />
+            <main>
+                Hello
+            </main>
         </>
     );
 }
