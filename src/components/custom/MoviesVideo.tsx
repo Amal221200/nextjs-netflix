@@ -1,7 +1,20 @@
 import prisma from "@/lib/db";
 import { Button } from "../ui/button";
+import MovieButtons from "./MovieButtons";
 
-async function getMovie() {
+interface MovieData {
+    title: string;
+    overview: string;
+    age: number;
+    id: number;
+    release: number;
+    duration: number;
+    imageString: string;
+    videoSource: string;
+    youtubeString: string;
+}
+
+async function getMovie(): Promise<MovieData> {
     "use server";
     const movie = await prisma.movie.findFirst({
         select: {
@@ -11,11 +24,13 @@ async function getMovie() {
             videoSource: true,
             imageString: true,
             release: true,
-            id: true
+            id: true,
+            youtubeString: true,
+            age: true
         }
     })
 
-    return movie
+    return movie!
 }
 
 const MovieVideo = async () => {
@@ -24,16 +39,12 @@ const MovieVideo = async () => {
 
     return (
         <main className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
-            <video poster={movie?.imageString} src={movie?.videoSource} autoPlay muted loop
-             className="w-full absolute top-0 left-0 h-[60vh] object-cover -z-10">
-            </video>
+            <video poster={movie.imageString} src={movie.videoSource} autoPlay muted loop
+                className="w-full absolute top-0 left-0 h-[60vh] object-cover -z-10" />
             <div className="absolute w-[90%] lg:w-[60%] mx-auto">
-                <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold">{movie?.title}</h1>
-                <p className="text-white text-lg line-clamp-3">{movie?.overview}</p>
-                <div className="flex gap-x-3 mt-2">
-                    <Button type="button">See More</Button>
-                    <Button type="button">Learn More</Button>
-                </div>
+                <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold">{movie.title}</h1>
+                <p className="text-white text-lg line-clamp-3">{movie.overview}</p>
+                <MovieButtons title={movie.title} overview={movie.overview} youtubeUrl={movie.youtubeString} age={movie.age} duration={movie.duration} id={movie.id} release={movie.release} key={movie.id} />
             </div>
         </main>
     );
