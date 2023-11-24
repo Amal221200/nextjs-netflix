@@ -35,7 +35,6 @@ async function getMovie(): Promise<MovieData> {
 
 const MovieVideo = async () => {
     const movie = await getMovie()
-    // console.log(movie);
 
     return (
         <main className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
